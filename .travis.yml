@@ -1,19 +1,22 @@
+language: go
 sudo: false
 
-language: go
-
-go:
-  - 1.9.x
-  - 1.x
+cache:
+  directories:
+    - $GOPATH/pkg/mod
 
 git:
   depth: 1
 
-install: true
+env:
+  - GO111MODULE=on
+
+go:
+  - 1.12.x
 
 before_script:
-  - go get github.com/tools/godep
-  - godep go build
+  - go mod download 
 
 script:
-  - godep go test ./...
+  - go test ./...  
+  - go test -race ./...

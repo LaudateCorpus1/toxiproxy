@@ -1,12 +1,20 @@
 name: toxiproxy
 
+type: go
+
 up:
-  - go: 1.7.3
+  - homebrew:
+    - openssl
+  - go:
+      version: 1.12
+      modules: true
+      tools:
+        - golang.org/x/tools/cmd/goimports
 
 commands:
   build:
-    run: godep go build
+    run: go build ./...
     desc: 'build the project'
   test:
-    run: godep go test ./...
+    run: go test ./...
     desc: 'run unit tests'
